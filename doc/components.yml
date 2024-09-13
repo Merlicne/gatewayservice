@@ -1,0 +1,175 @@
+components:
+  schemas:
+    responseBody:
+      type: object
+      properties:
+        StatusCode:
+          type: string
+        Message:
+          type: string
+        Data:
+          type: object   
+
+    Dorm:
+      type: object
+      properties:
+        name:
+          type: string
+        telephone:
+          type: string
+        waterPrice:
+          type: number
+        electricityPrice:
+          type: number
+        createdAt:
+          type: string
+        deletedAt:
+          type: string
+
+    Building:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        createdAt:
+          type: string
+        deletedAt:
+          type: string
+
+    RentType:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        createdAt:
+          type: string
+        deletedAt:
+          type: string
+
+    Room:
+      type: object
+      properties:
+        id:
+          type: string
+        buildingId:
+          type: string
+        floor:
+          type: number
+        roomNumber:
+          type: string
+        price:
+          type: number
+        createdAt:
+          type: string
+        deletedAt:
+          type: string
+
+    Furniture:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        createdAt:
+          type: string
+        deletedAt:
+          type: string
+
+    Rent:
+      type: object
+      properties:
+        id:
+          type: string
+        roomId:
+          type: string
+        rentTypeId:
+          type: string
+        tenantId:
+          type: string
+        createdAt:
+          type: string
+        deletedAt:
+          type: string
+
+    RoomFurniture:
+      type: object
+      properties:
+        roomId:
+          type: string
+        furnitureId:
+          type: string
+        quantity:
+          type: number
+        createdAt:
+          type: string
+        deletedAt:
+          type: string
+
+    Contract:
+      type: object
+      properties:
+        id:
+          type: string
+        rentId:
+          type: string
+        contractType:
+          type: string
+        startDate:
+          type: string
+        createdAt:
+          type: string
+        deletedAt:
+          type: string
+
+    Invoice:
+      type: object
+      properties:
+        id:
+          type: string
+        rentId:
+          type: string
+        electricityUnit:
+          type: number
+        waterUnit:
+          type: number
+        createdAt:
+          type: string
+        deletedAt:
+          type: string
+
+    Receipt:
+      type: object
+      properties:
+        id:
+          type: string
+        invoiceId:
+          type: string
+        createdAt:
+          type: string
+        deletedAt:
+          type: string
+
+  responses:
+    UnauthorizedError:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/responseBody'
+    ForbiddenError:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/responseBody'
+    NotFoundError:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/responseBody'

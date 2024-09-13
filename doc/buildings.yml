@@ -1,0 +1,172 @@
+openapi: 3.0.0
+info:
+  title: Dorm Management API
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/PhannakonPhungamngoen/DormProjectForSoftdev/1.0.0
+  description: SwaggerHub API Auto Mocking
+- url: http://ip:port/<serviceName>
+  description: Localhost
+security:
+  - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+paths:
+  /buildings:
+    get:
+      summary: Get all buildings
+      operationId: getAllBuildings
+      responses:
+        "200":
+          description: List of buildings
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  StatusCode:
+                    type: string
+                  Message:
+                    type: string
+                  Data:
+                    type: array
+                    items:
+                      $ref: './components.yml#/components/schemas/Building'
+        "401":
+          $ref: './components.yml#/components/responses/UnauthorizedError'
+        "403":
+          $ref: './components.yml#/components/responses/ForbiddenError'
+    post:
+      summary: Add a new building
+      operationId: addBuilding
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './components.yml#/components/schemas/Building'
+        required: true
+      responses:
+        "201":
+          description: Building added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  StatusCode:
+                    type: string
+                  Message:
+                    type: string
+                  Data:
+                    type: array
+                    items:
+                      $ref: './components.yml#/components/schemas/Building'
+        "401":
+          $ref: './components.yml#/components/responses/UnauthorizedError'
+        "403":
+          $ref: './components.yml#/components/responses/ForbiddenError'
+  /buildings/{id}:
+    get:
+      summary: Get building by ID
+      operationId: getBuildingById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        description: ID of the building to get
+      responses:
+        "200":
+          description: Building data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  StatusCode:
+                    type: string
+                  Message:
+                    type: string
+                  Data:
+                    type: array
+                    items:
+                      $ref: './components.yml#/components/schemas/Building'
+        "401":
+          $ref: './components.yml#/components/responses/UnauthorizedError'
+        "403":
+          $ref: './components.yml#/components/responses/ForbiddenError'
+        "404":
+          $ref: './components.yml#/components/responses/NotFoundError'
+    put:
+      summary: Update building by ID
+      operationId: updateBuilding
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        description: ID of the building to update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './components.yml#/components/schemas/Building'
+        required: true
+      responses:
+        "200":
+          description: Building updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  StatusCode:
+                    type: string
+                  Message:
+                    type: string
+                  Data:
+                    type: array
+                    items:
+                      $ref: './components.yml#/components/schemas/Building'
+        "401":
+          $ref: './components.yml#/components/responses/UnauthorizedError'
+        "403":
+          $ref: './components.yml#/components/responses/ForbiddenError'
+        "404":
+          $ref: './components.yml#/components/responses/NotFoundError'
+    delete:
+      summary: Delete building by ID
+      operationId: deleteBuilding
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        description: ID of the building to delete
+      responses:
+        "204":
+          description: Building deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: './components.yml#/components/schemas/responseBody'
+        "401":
+          $ref: './components.yml#/components/responses/UnauthorizedError'
+        "403":
+          $ref: './components.yml#/components/responses/ForbiddenError'
+        "404":
+          $ref: './components.yml#/components/responses/NotFoundError'
+        

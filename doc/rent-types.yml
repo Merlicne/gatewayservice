@@ -1,0 +1,161 @@
+openapi: 3.0.0
+info:
+  title: Dorm Management API
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/PhannakonPhungamngoen/DormProjectForSoftdev/1.0.0
+  description: SwaggerHub API Auto Mocking
+- url: https://ip:port/<serviceName>
+  description: Localhost
+security:
+  - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+paths:
+  /rent-types:
+    get:
+      summary: Get all rent types
+      operationId: getAllRentTypes
+      responses:
+        "200":
+          description: List of rent types
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  StatusCode:
+                    type: string
+                  Message:
+                    type: string
+                  Data:
+                    type: array
+                    items:
+                      $ref: './components.yml#/components/schemas/RentType'
+        "401":
+          $ref: './components.yml#/components/responses/UnauthorizedError'
+        "403":
+          $ref: './components.yml#/components/responses/ForbiddenError'
+    post:
+      summary: Add a new rent type
+      operationId: addRentType
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './components.yml#/components/schemas/RentType'
+        required: true
+      responses:
+        "201":
+          description: Rent type added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  StatusCode:
+                    type: string
+                  Message:
+                    type: string
+                  Data:
+                    $ref: './components.yml#/components/schemas/RentType'
+        "401":
+          $ref: './components.yml#/components/responses/UnauthorizedError'
+        "403":
+          $ref: './components.yml#/components/responses/ForbiddenError'
+  /rent-types/{id}:
+    get:
+      summary: Get rent type by ID
+      operationId: getRentTypeById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        description: ID of the rent type to retrieve
+      responses:
+        "200":
+          description: Rent type data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  StatusCode:
+                    type: string
+                  Message:
+                    type: string
+                  Data:
+                    $ref: './components.yml#/components/schemas/RentType'
+        "401":
+          $ref: './components.yml#/components/responses/UnauthorizedError'
+        "403":
+          $ref: './components.yml#/components/responses/ForbiddenError'
+        "404":
+          $ref: './components.yml#/components/responses/NotFoundError'
+    put:
+      summary: Update rent type by ID
+      operationId: updateRentType
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        description: ID of the rent type to update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './components.yml#/components/schemas/RentType'
+        required: true
+      responses:
+        "200":
+          description: Rent type updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  StatusCode:
+                    type: string
+                  Message:
+                    type: string
+                  Data:
+                    $ref: './components.yml#/components/schemas/RentType'
+        "401":
+          $ref: './components.yml#/components/responses/UnauthorizedError'
+        "403":
+          $ref: './components.yml#/components/responses/ForbiddenError'
+        "404":
+          $ref: './components.yml#/components/responses/NotFoundError'
+    delete:
+      summary: Delete rent type by ID
+      operationId: deleteRentType
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        description: ID of the rent type to delete
+      responses:
+        "204":
+          description: Rent type deleted successfully
+        "401":
+          $ref: './components.yml#/components/responses/UnauthorizedError'
+        "403":
+          $ref: './components.yml#/components/responses/ForbiddenError'
+        "404":
+          $ref: './components.yml#/components/responses/NotFoundError'

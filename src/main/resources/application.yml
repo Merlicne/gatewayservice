@@ -1,0 +1,46 @@
+spring:
+    application:
+        name: GatewayService
+    cloud:
+        gateway:
+            routes:
+                -   id: customer-service
+                    uri: lb://CUSTOMER-SERVICE
+                    predicates:
+                        - Path=/customer/**
+                    filters:
+                        - StripPrefix=1
+                -   id: product-service
+                    uri: lb://PRODUCT-SERVICE
+                    predicates:
+                        - Path=/product/**
+                    filters:
+                        - StripPrefix=1
+                -   id: order-service
+                    uri: lb://ORDER-SERVICE
+                    predicates:
+                        - Path=/order/**
+                    filters:
+                        - StripPrefix=1
+
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka/
+    instance:
+        preferIpAddress: true
+        instanceId: ${spring.application.name}:${spring.application.instance_id:${random.uuid}}
+        leaseRenewalIntervalInSeconds: 5
+        leaseExpirationDurationInSeconds: 10
+
+server:
+    port: 8080
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: "*"
+    endpoint:
+        health:
+            show-details: always

@@ -1,0 +1,165 @@
+openapi: 3.0.0
+info:
+  title: Dorm Management API
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/PhannakonPhungamngoen/DormProjectForSoftdev/1.0.0
+  description: SwaggerHub API Auto Mocking
+- url: https://ip:port/<serviceName>
+  description: Localhost
+security:
+  - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+paths:
+  /dorms:
+    get:
+      summary: Get all dorms
+      operationId: getAllDorms
+      responses:
+        "200":
+          description: List of dorms
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  StatusCode:
+                    type: string
+                  Message:
+                    type: string
+                  Data:
+                    type: array
+                    items:
+                      $ref: './components.yml#/components/schemas/Dorm'
+        "401":
+          $ref: './components.yml#/components/responses/UnauthorizedError'
+        "403":
+          $ref: './components.yml#/components/responses/ForbiddenError'
+    post:
+      summary: Add a new dorm
+      operationId: addDorm
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './components.yml#/components/schemas/Dorm'
+        required: true
+      responses:
+        "201":
+          description: Dorm added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  StatusCode:
+                    type: string
+                  Message:
+                    type: string
+                  Data:
+                    $ref: './components.yml#/components/schemas/Dorm'
+        "401":
+          $ref: './components.yml#/components/responses/UnauthorizedError'
+        "403":
+          $ref: './components.yml#/components/responses/ForbiddenError'
+  /dorms/{id}:
+    get:
+      summary: Get dorm by ID
+      operationId: getDormById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        description: ID of the dorm to get
+      responses:
+        "200":
+          description: Dorm data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  StatusCode:
+                    type: string
+                  Message:
+                    type: string
+                  Data:
+                    $ref: './components.yml#/components/schemas/Dorm'
+        "401":
+          $ref: './components.yml#/components/responses/UnauthorizedError'
+        "403":
+          $ref: './components.yml#/components/responses/ForbiddenError'
+        "404":
+          $ref: './components.yml#/components/responses/NotFoundError'
+    put:
+      summary: Update dorm by ID
+      operationId: updateDorm
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        description: ID of the dorm to update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './components.yml#/components/schemas/Dorm'
+        required: true
+      responses:
+        "200":
+          description: Dorm updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  StatusCode:
+                    type: string
+                  Message:
+                    type: string
+                  Data:
+                    $ref: './components.yml#/components/schemas/Dorm'
+        "401":
+          $ref: './components.yml#/components/responses/UnauthorizedError'
+        "403":
+          $ref: './components.yml#/components/responses/ForbiddenError'
+        "404":
+          $ref: './components.yml#/components/responses/NotFoundError'
+    delete:
+      summary: Delete dorm by ID
+      operationId: deleteDorm
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        description: ID of the dorm to delete
+      responses:
+        "204":
+          description: Dorm deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: './components.yml#/components/schemas/responseBody'
+        "401":
+          $ref: './components.yml#/components/responses/UnauthorizedError'
+        "403":
+          $ref: './components.yml#/components/responses/ForbiddenError'
+        "404":
+          $ref: './components.yml#/components/responses/NotFoundError'

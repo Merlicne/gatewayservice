@@ -1,0 +1,171 @@
+openapi: 3.0.0
+info:
+  title: Dorm Management API
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/PhannakonPhungamngoen/DormProjectForSoftdev/1.0.0
+  description: SwaggerHub API Auto Mocking
+- url: https://ip:port/<serviceName>
+  description: Localhost
+security:
+  - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+paths:
+  /contracts:
+    get:
+      summary: Get all contracts
+      operationId: getAllContracts
+      responses:
+        "200":
+          description: List of contracts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  StatusCode:
+                    type: string
+                  Message:
+                    type: string
+                  Data:
+                    type: array
+                    items:
+                      $ref: './components.yml#/components/schemas/Contract'
+        "401":
+          $ref: './components.yml#/components/responses/UnauthorizedError'
+        "403":
+          $ref: './components.yml#/components/responses/ForbiddenError'
+    post:
+      summary: Add a new contract
+      operationId: addContract
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './components.yml#/components/schemas/Contract'
+        required: true
+      responses:
+        "201":
+          description: Contract added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  StatusCode:
+                    type: string
+                  Message:
+                    type: string
+                  Data:
+                    type: array
+                    items:
+                      $ref: './components.yml#/components/schemas/Contract'
+        "401":
+          $ref: './components.yml#/components/responses/UnauthorizedError'
+        "403":
+          $ref: './components.yml#/components/responses/ForbiddenError'
+  /contracts/{id}:
+    get:
+      summary: Get contract by ID
+      operationId: getContractById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        description: ID of the contract to get
+      responses:
+        "200":
+          description: Contract data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  StatusCode:
+                    type: string
+                  Message:
+                    type: string
+                  Data:
+                    type: array
+                    items:
+                      $ref: './components.yml#/components/schemas/Contract'
+        "401":
+          $ref: './components.yml#/components/responses/UnauthorizedError'
+        "403":
+          $ref: './components.yml#/components/responses/ForbiddenError'
+        "404":
+          $ref: './components.yml#/components/responses/NotFoundError'
+    put:
+      summary: Update contract by ID
+      operationId: updateContract
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        description: ID of the contract to update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './components.yml#/components/schemas/Contract'
+        required: true
+      responses:
+        "200":
+          description: Contract updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  StatusCode:
+                    type: string
+                  Message:
+                    type: string
+                  Data:
+                    type: array
+                    items:
+                      $ref: './components.yml#/components/schemas/Contract'
+        "401":
+          $ref: './components.yml#/components/responses/UnauthorizedError'
+        "403":
+          $ref: './components.yml#/components/responses/ForbiddenError'
+        "404":
+          $ref: './components.yml#/components/responses/NotFoundError'
+    delete:
+      summary: Delete contract by ID
+      operationId: deleteContract
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        description: ID of the contract to delete
+      responses:
+        "204":
+          description: Contract deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: './components.yml#/components/schemas/responseBody'
+        "401":
+          $ref: './components.yml#/components/responses/UnauthorizedError'
+        "403":
+          $ref: './components.yml#/components/responses/ForbiddenError'
+        "404":
+          $ref: './components.yml#/components/responses/NotFoundError'
