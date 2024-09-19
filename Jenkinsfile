@@ -22,7 +22,7 @@ pipeline {
             agent {
                 docker { 
                     image 'maven:3.9.9-eclipse-temurin-21-alpine' 
-                    args '-v ${WORKSPACE}/.m2:/root/.m2 --entrypoint=""'
+                    args '-v /var/run/docker.sock:/var/run/docker.sock -v /path/to/host/.m2:/root/.m2 --user 105:111'
                 }
             }
             steps {                
