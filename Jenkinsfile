@@ -6,6 +6,7 @@ pipeline {
             agent{
                 docker{
                     image 'maven:3.9.9-ibm-semeru-17-focal'
+                    args '-v $HOME/.m2:/root/.m2'
                 }
             }
             steps{
@@ -16,6 +17,7 @@ pipeline {
             agent{
                 docker{
                     image 'maven:3.9.9-ibm-semeru-17-focal'
+                    args '-v $HOME/.m2:/root/.m2'
                 }
             }
             steps{
