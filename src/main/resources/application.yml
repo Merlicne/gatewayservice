@@ -4,11 +4,18 @@ spring:
     cloud:
         gateway:
             routes:
-                -   id: dorm-service
+                -   id: dorm-service1
                     uri: lb://dorm-service
                     predicates:
-                        - Path=/api/v1/admin/**|/api/v1/dorm/**|/api/v1/building/**
-
+                        - Path=/api/*/dorm/**
+                -   id: dorm-service2
+                    uri: lb://dorm-service
+                    predicates:
+                        - Path=/api/*/building/**
+                -   id: dorm-service3
+                    uri: lb://dorm-service
+                    predicates:
+                        - Path=/api/*/admin/**
 eureka:
     client:
         serviceUrl:
