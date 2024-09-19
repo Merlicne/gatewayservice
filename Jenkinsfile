@@ -16,16 +16,19 @@ pipeline {
         }
         stage('Test-docker-env'){
             steps{
-                def dockerImage = docker.build("maven:3.9.9-openjdk-17")
-                dockerImage.inside(){
-                    sh 'pwd'
-                    sh 'ls -la'
-                    sh 'echo ${BUILD_NUMBER}'
-                    sh 'echo ${JOB_NAME}'
-                    sh 'echo ${BUILD_ID}'
-                    sh 'echo ${BUILD_DISPLAY_NAME}'
-                    sh 'echo ${BUILD_TAG}'
-                    sh 'echo ${BUILD_URL}'
+                script{
+                    def dockerImage = docker.build("maven:3.9.9-openjdk-17")
+                    dockerImage.inside(){
+                        sh 'pwd'
+                        sh 'ls -la'
+                        sh 'echo ${BUILD_NUMBER}'
+                        sh 'echo ${JOB_NAME}'
+                        sh 'echo ${BUILD_ID}'
+                        sh 'echo ${BUILD_DISPLAY_NAME}'
+                        sh 'echo ${BUILD_TAG}'
+                        sh 'echo ${BUILD_URL}'
+                    }
+
                 }
                 
             }
