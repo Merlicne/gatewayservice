@@ -8,13 +8,10 @@ pipeline {
     stages{
         stage('Test-env'){
             steps{
-                sh 'echo ${BUILD_NUMBER}'
-                sh 'echo ${JOB_NAME}'
-                sh 'echo ${JOB_DISPLAY_URL}'
                 sh 'echo ${env.BUILD_NUMBER}'
                 sh 'echo ${env.JOB_NAME}'
                 sh 'echo ${env.JOB_DISPLAY_URL}'
-                // sh 'pwd'
+                sh 'pwd'
                 sh 'ls'
             }
         }
