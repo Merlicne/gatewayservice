@@ -19,22 +19,13 @@ pipeline {
             }
         }
         stage('build') {
-            agent {
-                docker { 
-                    image 'maven:3.9.9-eclipse-temurin-21-alpine' 
-                    args '-v /var/run/docker.sock:/var/run/docker.sock -v /path/to/host/.m2:/root/.m2 --user 105:111'
-                }
-            }
             steps {                
-                sh 'mvn -X clean'
+                sh './mvnw -X clean'
             }
         }
         stage('test') {
-            agent {
-                docker { image 'maven:3.9.9-eclipse-temurin-21-alpine' }
-            }
             steps {
-                sh 'mvn -X test'
+                sh './mvnw -X test'
             }
         }
 
