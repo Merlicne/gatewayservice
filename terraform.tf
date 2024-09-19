@@ -36,12 +36,6 @@ spec:
     - name: gce-container
       image: ${var.IMAGE_NAME}
       env:
-        - name: SPRING_DATASOURCE_URL
-          value: "jdbc:postgresql://${var.DATABASE_URL}/${var.DATABASE_NAME}"
-        - name: SPRING_DATASOURCE_USERNAME
-          value: ${var.DATABASE_USERNAME}
-        - name: SPRING_DATASOURCE_PASSWORD
-          value: ${var.DATABASE_PASSWORD}
         - name: EUREKA_CLIENT_ENABLED
           value: "true"
         - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
