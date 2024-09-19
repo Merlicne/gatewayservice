@@ -19,13 +19,25 @@ pipeline {
             }
         }
         stage('build') {
-            steps {                
-                sh './mvnw -X clean'
+            agent{
+                docker{
+                    image 'maven:3.9.9-ibm-semeru-17-focal'
+                    args '-v /root/.m2:/root/.m2:rw'
+                }
+            }
+            steps {     
+                sh 'mvn -X clean package'
             }
         }
         stage('test') {
+            agent{
+                docker{
+                    image 'maven:3.9.9-ibm-semeru-17-focal'
+                    args '-v /root/.m2:/root/.m2:rw'
+                }
+            }
             steps {
-                sh './mvnw -X test'
+                sh 'mvn -X test'
             }
         }
 
