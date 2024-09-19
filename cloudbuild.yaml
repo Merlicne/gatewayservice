@@ -10,11 +10,11 @@ steps:
     id: 'test'
 
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/services/${REPO_NAME}:${COMMIT_SHA}', '.']
+    args: ['build', '-t', 'asia-southeast1-docker.pkg.dev/${PROJECT_ID}/services/${REPO_NAME}:${COMMIT_SHA}', '.']
     id: 'docker-build'
   
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/services/${REPO_NAME}:${COMMIT_SHA}']
+    args: ['push', 'asia-southeast1-docker.pkg.dev/${PROJECT_ID}/services/${REPO_NAME}:${COMMIT_SHA}']
     id: 'docker-push'
   
   - id: 'terraform-init'
@@ -40,10 +40,10 @@ steps:
       - '-c'
       - |
         terraform plan
-          -var "region=$LOCATION"   
-          -var "zone=$LOCATION-a" 
+          -var "region=asia-southeast1"   
+          -var "zone=asia-southeast1-a" 
           -var "service_name=$REPO_NAME" 
-          -var "IMAGE_NAME=${LOCATION}-docker.pkg.dev/${PROJECT_ID}/services/${REPO_NAME}:${COMMIT_SHA}" 
+          -var "IMAGE_NAME=asia-southeast1-docker.pkg.dev/${PROJECT_ID}/services/${REPO_NAME}:${COMMIT_SHA}" 
           -var "project_id=$PROJECT_ID"
           -var "EUREKA_URL=${_EUREKA_ENDPOINT}"
           -var "JWT_SECRET=${_JWT_KEY}"
@@ -57,10 +57,11 @@ steps:
       - '-c'
       - |
         terraform apply -auto-approve
-          -var "region=$LOCATION"   
-          -var "zone=$LOCATION-a" 
+          -var "region=asia-southeast1"   
+          -var "zone=asia-southeast1-a" 
           -var "service_name=$REPO_NAME" 
-          -var "IMAGE_NAME=${LOCATION}-docker.pkg.dev/${PROJECT_ID}/services/${REPO_NAME}:${COMMIT_SHA}" 
+          -var "IMAGE_NAME=asia-southeast1-docker.pkg.dev/${PROJECT_ID}/services/${REPO_NAME}:${COMMIT_SHA}" 
+          asia-southeast1-docker.pkg.dev/softdev-project-cp353002/services
           -var "project_id=$PROJECT_ID"
           -var "EUREKA_URL=${_EUREKA_ENDPOINT}"
           -var "JWT_SECRET=${_JWT_KEY}"
@@ -70,8 +71,9 @@ steps:
   - id: 'gcloud-restart-gce'
     name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'gcloud'
-    args: ['compute', 'instances', 'reset', '${REPO_NAME}', '--zone=${LOCATION}-a']
+    args: ['compute', 'instances', 'reset', '${REPO_NAME}', '--zone=asia-southeast1-a']
 
 
 options:
   logging: CLOUD_LOGGING_ONLY
+
