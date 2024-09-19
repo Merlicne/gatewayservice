@@ -12,8 +12,6 @@ pipeline {
                 sh 'echo ${env.BUILD_NUMBER}'
                 sh 'echo ${env.JOB_NAME}'
                 sh 'echo ${env.JOB_DISPLAY_URL}'
-                sh 'pwd'
-                sh 'ls'
             }
         }
         stage('Test-docker-env'){
