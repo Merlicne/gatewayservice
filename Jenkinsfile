@@ -7,6 +7,9 @@ pipeline {
                 echo '${BUILD_NUMBER}'
                 echo '${JOB_NAME}'
                 echo '${JOB_DISPLAY_URL}'
+                echo '${env.BUILD_NUMBER}'
+                echo '${env.JOB_NAME}'
+                echo '${env.JOB_DISPLAY_URL}'
                 sh 'pwd'
                 sh 'ls'
             }
@@ -22,6 +25,7 @@ pipeline {
                         sh 'echo ${JOB_DISPLAY_URL}'
                         sh 'pwd'
                         sh 'ls'
+                        sh 'mvn clean install'
                     }
                 }
             }
