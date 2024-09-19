@@ -38,9 +38,9 @@ steps:
           -var "service_name=$REPO_NAME" 
           -var "IMAGE_NAME=${LOCATION}-docker.pkg.dev/${PROJECT_ID}/services/${REPO_NAME}/${COMMIT}:${COMMIT_SHA}" 
           -var "project_id=$PROJECT_ID"
-          -var "EUREKA_URL=$EUREKA_ENDPOINT"
-          -var "JWT_SECRET=$JWT_KEY"
-          -var "JWT_EXPIRATION_TIME=$JWT_EXPIRATION_TIME"
+          -var "EUREKA_URL=${_EUREKA_ENDPOINT}"
+          -var "JWT_SECRET=${_JWT_KEY}"
+          -var "JWT_EXPIRATION_TIME=${_JWT_EXPIRATION_TIME}"
           -var "VERSION=$COMMIT_SHA"
         terraform apply -auto-approve
           -var "region=$LOCATION"   
@@ -48,9 +48,9 @@ steps:
           -var "service_name=$REPO_NAME" 
           -var "IMAGE_NAME=${LOCATION}-docker.pkg.dev/${PROJECT_ID}/services/${REPO_NAME}/${COMMIT}:${COMMIT_SHA}" 
           -var "project_id=$PROJECT_ID"
-          -var "EUREKA_URL=$EUREKA_ENDPOINT"
-          -var "JWT_SECRET=$JWT_KEY"
-          -var "JWT_EXPIRATION_TIME=$JWT_EXPIRATION_TIME"
+          -var "EUREKA_URL=${_EUREKA_ENDPOINT}"
+          -var "JWT_SECRET=${_JWT_KEY}"
+          -var "JWT_EXPIRATION_TIME=${_JWT_EXPIRATION_TIME}"
           -var "VERSION=$COMMIT_SHA"
   
   - id: 'gcloud-restart-gce'
