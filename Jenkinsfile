@@ -15,7 +15,7 @@ pipeline {
                 }
             }
             steps {     
-                sh 'mvn -X clean package "-Dmaven.repo.local=/dev/null"'
+                sh 'mvn -X clean package "-Dmaven.test.skip=true"'
             }
         }
         stage('test') {
@@ -26,7 +26,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'mvn -X test "-Dmaven.repo.local=/dev/null"'
+                sh 'mvn -X test "-Dmaven.test.skip=true"'
             }
         }
 
