@@ -4,12 +4,12 @@ spring:
     cloud:
         gateway:
             routes:
-                -   id: customer-service
-                    uri: lb://DORM-SERVICE
+                -   id: dorm-service
+                    uri: lb://dorm-service
                     predicates:
-                        - Path=/api/*/admin/**
-                        - Path=/api/*/dorm/**
-                        - Path=/api/*/building/**
+                        - Path=**/admin/**
+                        - Path=**/dorm/**
+                        - Path=**/building/**
 
 eureka:
     client:
