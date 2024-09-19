@@ -4,7 +4,9 @@ pipeline {
     stages{
         stage('Build'){
             agent {
-                image 'maven:3.9.9-ibm-semeru-17-focal'
+                docker{
+                    image 'maven:3.9.9-ibm-semeru-17-focal'
+                }
             }
             steps{
                 sh 'mvn -B -DskipTests clean install'
@@ -12,7 +14,9 @@ pipeline {
         }
         stage('Test'){
             agent{
-                image 'maven:3.9.9-ibm-semeru-17-focal'
+                docker {
+                    image 'maven:3.9.9-ibm-semeru-17-focal'
+                }
             }
             steps{
                 sh 'mvn test'
