@@ -1,19 +1,3 @@
-variable "DATABASE_URL" {
-  description = "The URL of the database"
-}
-
-variable "DATABASE_USERNAME" {
-  description = "The username of the database"
-}
-
-variable "DATABASE_PASSWORD" {
-  description = "The password of the database"
-}
-
-variable "DATABASE_NAME" {
-  description = "The name of the database"
-}
-
 variable "EUREKA_URL" {
   description = "The URL of the Eureka server"
 }
