@@ -26,7 +26,7 @@ pipeline {
                 }
             }
             steps {                
-                sh 'mvn -X clean'
+                sh './mvnw -X clean'
             }
         }
         stage('test') {
