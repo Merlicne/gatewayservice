@@ -3,10 +3,6 @@ pipeline {
     stages {
         stage('local env'){
             steps{
-                sh 'echo "$GCP_SERVICE_ACCOUNT_KEY" > gcp-key.json'
-                sh 'gcloud auth activate-service-account --key-file=gcp-key.json'
-                sh 'gcloud config set project $GCP_PROJECT_ID'
-                sh 'export GOOGLE_APPLICATION_CREDENTIALS="$PWD/gcp-key.json"'
                 sh 'pwd'
                 sh 'ls'
                 sh 'echo ${BUILD_NUMBER}'
