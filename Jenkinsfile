@@ -11,11 +11,19 @@ pipeline {
                 sh 'echo ${BUILD_DISPLAY_NAME}'
                 sh 'echo ${BUILD_TAG}'
                 sh 'echo ${BUILD_URL}'
+                sh 'echo ${JENKINS_HOME}'
+                sh 'echo ${JENKINS_URL}'
+                sh 'echo ${NODE_NAME}'
+                sh 'echo ${JOB_URL}'
+                sh 'echo ${WORKSPACE}'
             }
         }
         stage('build') {
             agent {
-                docker { image 'maven:3.9.9-eclipse-temurin-21-alpine' }
+                docker { 
+                    image 'maven:3.9.9-eclipse-temurin-21-alpine' 
+                    args '-v /root/.m2:/root/.m2'
+                }
             }
             steps {                
                 sh 'mvn clean install'
