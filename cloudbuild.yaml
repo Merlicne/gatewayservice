@@ -71,3 +71,7 @@ steps:
     name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'gcloud'
     args: ['compute', 'instances', 'reset', '${REPO_NAME}', '--zone=${LOCATION}-a']
+
+
+options:
+  logging: CLOUD_LOGGING_ONLY
