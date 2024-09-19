@@ -32,6 +32,13 @@ steps:
           -backend-config="lock_method=POST"
           -backend-config="unlock_method=DELETE"
           -backend-config="retry_wait_min=5"
+
+  - id: 'terraform-plan-apply'
+    name: 'hashicorp/terraform:1.0.0'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
         terraform plan
           -var "region=$LOCATION"   
           -var "zone=$LOCATION-a" 
@@ -42,6 +49,13 @@ steps:
           -var "JWT_SECRET=${_JWT_KEY}"
           -var "JWT_EXPIRATION_TIME=${_JWT_EXPIRATION_TIME}"
           -var "VERSION=$COMMIT_SHA"
+  
+  - id: 'terraform-apply'
+    name: 'hashicorp/terraform:1.0.0'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
         terraform apply -auto-approve
           -var "region=$LOCATION"   
           -var "zone=$LOCATION-a" 
