@@ -17,7 +17,7 @@ pipeline {
         stage('Test-docker-env'){
             steps{
                 script{
-                    def dockerImage = docker.build("maven:3.9.9-openjdk-17")
+                    def dockerImage = docker.build("maven:3.9.9-eclipse-temurin-17-alpine")
                     dockerImage.inside(){
                         sh 'pwd'
                         sh 'ls -la'
