@@ -16,6 +16,34 @@ spring:
                     uri: lb://dorm-service
                     predicates:
                         - Path=/api/*/admin/**
+                -   id: room-service1
+                    uri: lb://room-service
+                    predicates:
+                        - Path=/api/*/room/**
+                -   id: room-service2
+                    uri: lb://room-service
+                    predicates:
+                        - Path=/api/*/furniture/**
+                -   id: room-service3
+                    uri: lb://room-service
+                    predicates:
+                        - Path=/api/*/catalog/**
+                -   id: rent-service1
+                    uri: lb://rent-service
+                    predicates:
+                        - Path=/api/*/rent/**
+                -   id: rent-service2
+                    uri: lb://rent-service
+                    predicates:
+                        - Path=/api/*/tenant/**
+                -   id: rent-service3
+                    uri: lb://rent-service
+                    predicates:
+                        - Path=/api/*/invoice/**
+                -   id: rent-service4
+                    uri: lb://rent-service
+                    predicates:
+                        - Path=/api/*/receipt/**
 eureka:
     client:
         serviceUrl:
