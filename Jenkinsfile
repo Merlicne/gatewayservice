@@ -26,7 +26,7 @@ pipeline {
                 }
             }
             steps {                
-                sh 'mvn clean install'
+                sh 'mvn -X clean install'
             }
         }
         stage('test') {
@@ -34,7 +34,7 @@ pipeline {
                 docker { image 'maven:3.9.9-eclipse-temurin-21-alpine' }
             }
             steps {
-                sh 'mvn test'
+                sh 'mvn -X test'
             }
         }
 
