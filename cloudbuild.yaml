@@ -1,0 +1,59 @@
+steps:
+  - name: 'maven:3.9.9-ibm-semeru-17-focal'
+    entrypoint: 'mvn'
+    args: ['clean', 'install']
+    id: 'build'
+  
+  - name: 'maven:3.9.9-ibm-semeru-17-focal''
+    entrypoint: 'mvn'
+    args: ['test']
+    id: 'test'
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/services/${REPO_NAME}/${COMMIT}:${COMMIT_SHA}', '.']
+    id: 'docker-build'
+  
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/services/${REPO_NAME}/${COMMIT}:${COMMIT_SHA}']
+    id: 'docker-push'
+  
+  - id: 'terraform-init'
+    name: 'hashicorp/terraform:1.0.0'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        terraform init
+          -backend-config="address=${TF_ADDRESS}"
+          -backend-config="lock_address=${TF_ADDRESS}/lock"
+          -backend-config="unlock_address=${TF_ADDRESS}/lock"
+          -backend-config="username=${TF_HTTP_USERNAME}"
+          -backend-config="password=${TF_HTTP_PASSWORD}"
+          -backend-config="lock_method=POST"
+          -backend-config="unlock_method=DELETE"
+          -backend-config="retry_wait_min=5"
+        terraform plan
+          -var "region=$LOCATION"   
+          -var "zone=$LOCATION-a" 
+          -var "service_name=$REPO_NAME" 
+          -var "IMAGE_NAME=${LOCATION}-docker.pkg.dev/${PROJECT_ID}/services/${REPO_NAME}/${COMMIT}:${COMMIT_SHA}" 
+          -var "project_id=$PROJECT_ID"
+          -var "EUREKA_URL=$EUREKA_ENDPOINT"
+          -var "JWT_SECRET=$JWT_KEY"
+          -var "JWT_EXPIRATION_TIME=$JWT_EXPIRATION_TIME"
+          -var "VERSION=$COMMIT_SHA"
+        terraform apply -auto-approve
+          -var "region=$LOCATION"   
+          -var "zone=$LOCATION-a" 
+          -var "service_name=$REPO_NAME" 
+          -var "IMAGE_NAME=${LOCATION}-docker.pkg.dev/${PROJECT_ID}/services/${REPO_NAME}/${COMMIT}:${COMMIT_SHA}" 
+          -var "project_id=$PROJECT_ID"
+          -var "EUREKA_URL=$EUREKA_ENDPOINT"
+          -var "JWT_SECRET=$JWT_KEY"
+          -var "JWT_EXPIRATION_TIME=$JWT_EXPIRATION_TIME"
+          -var "VERSION=$COMMIT_SHA"
+  
+  - id: 'gcloud-restart-gce'
+    name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'gcloud'
+    args: ['compute', 'instances', 'reset', '${REPO_NAME}', '--zone=${LOCATION}-a']

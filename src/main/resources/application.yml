@@ -5,23 +5,11 @@ spring:
         gateway:
             routes:
                 -   id: customer-service
-                    uri: lb://CUSTOMER-SERVICE
+                    uri: lb://dorm-service
                     predicates:
-                        - Path=/customer/**
-                    filters:
-                        - StripPrefix=1
-                -   id: product-service
-                    uri: lb://PRODUCT-SERVICE
-                    predicates:
-                        - Path=/product/**
-                    filters:
-                        - StripPrefix=1
-                -   id: order-service
-                    uri: lb://ORDER-SERVICE
-                    predicates:
-                        - Path=/order/**
-                    filters:
-                        - StripPrefix=1
+                        - Path=/api/*/admin/**
+                        - Path=/api/*/dorm/**
+                        - Path=/api/*/building/**
 
 eureka:
     client:
