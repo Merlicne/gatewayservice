@@ -4,7 +4,7 @@ steps:
     args: ['clean', 'install']
     id: 'build'
   
-  - name: 'maven:3.9.9-ibm-semeru-17-focal''
+  - name: 'maven:3.9.9-ibm-semeru-17-focal'
     entrypoint: 'mvn'
     args: ['test']
     id: 'test'
