@@ -9,14 +9,12 @@ pipeline {
     stages{
         stage('Test-env'){
             steps{
-                pwd
-                ls
+                sh 'mvn -version'
             }
         }
         stage('Test-docker-env'){
             steps{
-                pwd
-                ls
+                sh 'docker --version'
             }
         }
     }   
