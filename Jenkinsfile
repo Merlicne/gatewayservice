@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent docker{
+        image 'maven:3.9.9-ibm-semeru-17-focal'
+    }
 
     stages{
         stage('Test-env'){
@@ -16,11 +18,6 @@ pipeline {
         }
         stage('Test-docker-env')
         {
-            agent{
-                docker{
-                    image 'maven:3.9.9-ibm-semeru-17-focal'
-                }
-            }
             steps{
                 sh 'pwd'
                 sh 'ls'
