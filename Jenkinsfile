@@ -9,15 +9,14 @@ pipeline {
     stages{
         stage('Test-env'){
             steps{
-                bash 'echo ${env.BUILD_NUMBER}'
-                bash 'echo ${env.JOB_NAME}'
-                bash 'echo ${env.JOB_DISPLAY_URL}'
+                pwd
+                ls
             }
         }
         stage('Test-docker-env'){
             steps{
-                bash 'pwd'
-                bash 'ls'
+                pwd
+                ls
             }
         }
     }   
