@@ -5,7 +5,7 @@ spring:
         gateway:
             routes:
                 -   id: customer-service
-                    uri: lb://dorm-service
+                    uri: lb://DORM-SERVICE
                     predicates:
                         - Path=/api/*/admin/**
                         - Path=/api/*/dorm/**
