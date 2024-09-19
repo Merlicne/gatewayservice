@@ -5,17 +5,6 @@ pipeline {
             steps{
                 sh 'pwd'
                 sh 'ls'
-                sh 'echo ${BUILD_NUMBER}'
-                sh 'echo ${JOB_NAME}'
-                sh 'echo ${BUILD_ID}'
-                sh 'echo ${BUILD_DISPLAY_NAME}'
-                sh 'echo ${BUILD_TAG}'
-                sh 'echo ${BUILD_URL}'
-                sh 'echo ${JENKINS_HOME}'
-                sh 'echo ${JENKINS_URL}'
-                sh 'echo ${NODE_NAME}'
-                sh 'echo ${JOB_URL}'
-                sh 'echo ${WORKSPACE}'
             }
         }
         stage('build') {
@@ -26,7 +15,7 @@ pipeline {
                 }
             }
             steps {     
-                sh 'mvn -X clean package'
+                sh 'mvn -X clean package "-Dmaven.repo.local=/dev/null"'
             }
         }
         stage('test') {
@@ -37,7 +26,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'mvn -X test'
+                sh 'mvn -X test "-Dmaven.repo.local=/dev/null"'
             }
         }
 
