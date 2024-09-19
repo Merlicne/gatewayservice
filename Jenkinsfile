@@ -3,18 +3,19 @@ pipeline {
 
     stages{
         stage('Build'){
+            docker{
+                image 'maven:3.9.9-ibm-semeru-17-focal'
+            }
             steps{
-                withMaven{
-                    sh 'mvn -B -DskipTests clean install'
-
-                }
+                sh 'mvn -B -DskipTests clean package'
             }
         }
         stage('Test'){
+            docker{
+                image 'maven:3.9.9-ibm-semeru-17-focal'
+            }
             steps{
-                withMaven{
-                    sh 'mvn test'
-                }
+                sh 'mvn test'
             }
         }
     }   
