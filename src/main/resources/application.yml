@@ -44,21 +44,14 @@ spring:
                     uri: lb://rent-service
                     predicates:
                         - Path=/api/*/receipt/**
+            default-filters:
+                - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
             globalcors:
-                corsConfigurations:
+                cors-configurations:
                     '[/**]':
                         allowedOrigins: "*"
-                        allowedMethods:
-                            - GET
-                            - POST
-                            - PUT
-                            - DELETE
-                        allowedHeaders:
-                            - "Authorization"
-                            - "Content-Type"
-                            - "X-Requested-With"
-                            - "accept"
-                            - "Origin"
+                        allowedMethods: "*"
+                        allowedHeaders: "*"
 eureka:
     client:
         serviceUrl:
